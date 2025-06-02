@@ -11,6 +11,7 @@ public class Email {
     private String remitente;
     private String asunto;
     private String contenido;
+    //La lógica para envíar el Mail no debería ir dentro de Email
     private boolean enviado;
 
     public Email(String destinatario, String remitente, String asunto, String contenido) {
@@ -21,7 +22,8 @@ public class Email {
         this.enviado = false;
     }
 
+    //La lógica para envíar el Mail no debería ir dentro de Email
     public void enviar() {
         //TODO: Implementación pendiente. Podríamos usar adapters
     }
-} 
+}
