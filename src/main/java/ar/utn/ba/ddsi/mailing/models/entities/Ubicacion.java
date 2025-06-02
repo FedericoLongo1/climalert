@@ -1,8 +1,10 @@
 package ar.utn.ba.ddsi.mailing.models.entities;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Ubicacion {
     private Ciudad ciudad;
     private Region region;

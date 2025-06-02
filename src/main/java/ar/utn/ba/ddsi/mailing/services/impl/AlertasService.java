@@ -63,11 +63,12 @@ public class AlertasService implements IAlertasService {
 
     private boolean cumpleCondicionesAlerta(Clima clima) {
         //TODO: podríamos refactorizar el diseño para que no sea un simple método, pues puede ser más complejo
-        return clima.getTemperaturaCelsius() > TEMPERATURA_ALERTA && 
+        return clima.getTemperatura().getTemperaturaCelsius() > TEMPERATURA_ALERTA &&
                clima.getHumedad() > HUMEDAD_ALERTA;
     }
 
     private void generarYEnviarEmail(Clima clima) {
+        String ciudad =clima.getUbicacion().getCiudad().getNombre();
         String asunto = "Alerta de Clima - Condiciones Extremas";
         String mensaje = String.format(
             "ALERTA: Condiciones climáticas extremas detectadas en %s\n\n" +
@@ -76,8 +77,8 @@ public class AlertasService implements IAlertasService {
             "Condición: %s\n" +
             "Velocidad del viento: %.1f km/h\n\n" +
             "Se recomienda tomar precauciones.",
-            clima.getCiudad(),
-            clima.getTemperaturaCelsius(),
+            ciudad,
+            clima.getTemperatura().getTemperaturaCelsius(),
             clima.getHumedad(),
             clima.getCondicion(),
             clima.getVelocidadVientoKmh()
@@ -89,6 +90,6 @@ public class AlertasService implements IAlertasService {
         }
         
         logger.info("Email de alerta generado para {} - Enviado a {} destinatarios", 
-            clima.getCiudad(), destinatarios.size());
+            ciudad, destinatarios.size());
     }
 } 

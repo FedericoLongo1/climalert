@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Clima {
     private Long id;
     private Ubicacion ubicacion;
-    private Temperatura temperaturaCelsius;
+    private Temperatura temperatura;
     private String condicion;
     private Double velocidadVientoKmh;
     private Integer humedad;
