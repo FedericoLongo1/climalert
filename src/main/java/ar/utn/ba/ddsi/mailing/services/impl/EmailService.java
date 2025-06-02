@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.mailing.services.impl;
 
 import ar.utn.ba.ddsi.mailing.models.entities.Email;
 import ar.utn.ba.ddsi.mailing.models.repositories.IEmailRepository;
+import ar.utn.ba.ddsi.mailing.services.IEmailSenderService;
 import ar.utn.ba.ddsi.mailing.services.IEmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +13,11 @@ import java.util.List;
 public class EmailService implements IEmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
     private final IEmailRepository emailRepository;
+    private final IEmailSenderService emailSender;
 
-    public EmailService(IEmailRepository emailRepository) {
+    public EmailService(IEmailRepository emailRepository, IEmailSenderService emailSender) {
         this.emailRepository = emailRepository;
+        this.emailSender = emailSender;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class EmailService implements IEmailService {
     public void procesarPendientes() {
         List<Email> pendientes = emailRepository.findByEnviado(false);
         for (Email email : pendientes) {
-            email.enviar();
+            emailSender.enviar(email);
             email.setEnviado(true);
             emailRepository.save(email);
         }
